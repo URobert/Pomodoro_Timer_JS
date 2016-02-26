@@ -1,0 +1,71 @@
+
+dy {
+  width: 100%;
+  max-width: 1920px;     
+  background:url("http://www.pageresource.com/wallpapers/wallpaper/galaxy-free-blue-pattern_2468694.jpg") no-repeat;
+  
+}    
+h2 {
+  font: 400 50px/0.8 'Cookie', Helvetica, sans-serif;
+  color: #fff;
+  text-shadow: 4px 4px 3px rgba(0,0,0,0.1); 
+}
+
+.descriptionCookie{
+  font: 400 25px/0.8 'Cookie', Helvetica, sans-serif;
+  color: #fff;
+  text-shadow: 4px 4px 3px rgba(0,0,0,0.1);
+}
+
+.descriptionCookie2{
+  font: 400 75px/0.8 'Cookie', Helvetica, sans-serif;
+  color: #fff;
+  text-shadow: 4px 4px 3px rgba(0,0,0,0.1);
+}
+
+
+.top-buffer { margin-top:23px; }
+
+.timeleft { border: 2px solid #EEE; border-radius: 0.5em; font-size: 4em; display: inline-block; margin: 0.5em 0; padding: 0.5em; }
+
+p {
+  color:white;
+}
+
+span {
+  font-size: large;
+}
+
+.btn-lg{
+border-radius: 10px;
+}
+
+.btn-sm{
+  border-radius: 50px;
+  backgound: black;
+}
+
+.btn-lg:hover {
+	background: rgba(F,F,F,F);
+	color: white;
+	box-shadow: inset 0 0 0 3px white;
+}
+
+.btn-sm:hover {
+	background: rgba(F,F,F,F);
+	color: white;
+	box-shadow: inset 0 0 0 2px white;
+}
+
+
+/*#r {
+  color: white;
+  margin-right:10px;
+  position:absolute;
+  right:0;
+  margin-top:17%;
+  font: 400 40px/1.5 'Pacifico', Helvetica, sans-serif;
+  font-size: 15px;
+  text-shadow: 3px 3px 0px black, 7px 7px 0px rgba(0,0,0,0.05);
+  z-index:-1;
+}*/

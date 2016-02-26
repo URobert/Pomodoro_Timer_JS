@@ -1,0 +1,208 @@
+$(document).ready(function() {
+  	$("#startB").click(startFunction);
+    $("#stopB").click(stopFunction);
+    $("#sessionMinus").click(decreaseFunction);
+    $("#sessionPlus").click(increaseFunction);
+    $("#breakMinus").click(decreaseBreakFunction);
+    $("#breakPlus").click(increaseBreakFunction);
+    $("#restartB").click(sessionRestart);
+});
+var running = false;
+var paused = false;
+var restarted = false;
+var time = parseInt(output.textContent);
+//var time = 1;
+var secs = time*60; 
+var myTime = secondsToTime(secs);
+var breakLength = 5;
+var breakOver = false;
+
+var markCompleted = 0;
+var fivePercent = 0;
+var totalSecs = secs;
+
+
+function completionBar (){
+  var n = markCompleted;
+    document.getElementById("marker").textContent = n + "%";
+  var w = markCompleted.toString() + "%"
+    document.getElementById("marker").style.width=w;
+}
+
+function beep() { //signals the end of work session
+    var snd = new Audio("http://www.freesfx.co.uk/rx2/mp3s/9/11105_1393961054.mp3");  
+    snd.play();
+}
+
+function decreaseFunction(){
+   //sessionRestart();
+   var i = document.getElementById("sessionTime").textContent;
+   if (i > 1){
+   i--;
+   $("#sessionTime").html(i);// replace in HTML
+   if (running === false && document.getElementById("work").textContent === "Work time !")  
+   {output.textContent = i+":"+"00";}
+   time = sessionTime.textContent;
+   //console.log(parseInt(time));
+ }
+}
+
+function increaseFunction(){
+// sessionRestart();  
+ var j = document.getElementById("sessionTime").textContent;
+ if (j < 60){
+ j++;
+ $("#sessionTime").html(j);// replace in HTML
+ if (running === false && document.getElementById("work").textContent === "Work time !"){output.textContent = j+":"+"00";}
+ time = sessionTime.textContent;
+ //console.log(parseInt(time));
+ }
+}
+
+function startFunction(){      // called by clicking the start button
+  
+   // console.log(time);
+  if (paused === true){
+   myTime.m = parseInt(output.textContent);
+   myTime.s = (output.textContent).slice(-2); // overwrting global obj prob, to start timer correctly
+    }else{ 
+     myTime.m = time-1;
+     myTime.s = 60;} 
+     //myTime.m = 1;  // just for testing     
+     //myTime.s = 0;}
+     // console.log(myTime);
+     paused = false;
+     breakOver = false;
+     restarted = false;
+     secondsToTime(time); 
+     countDown(myTime);     
+}
+
+function secondsToTime(time)
+{
+    var divisor_for_minutes = secs % (60 * 60);
+    var minutes = Math.floor(divisor_for_minutes / 60);
+ 
+    var divisor_for_seconds = divisor_for_minutes % 60;
+    var seconds = Math.ceil(divisor_for_seconds);
+   
+    var timeObj = {
+        "m": minutes-1, //so that on click countdown begins from 24:59 instead of 25:59
+        "s": seconds
+    };
+  return timeObj;
+}
+
+
+
+function timeDisplay (myTime){
+  var timeString = myTime.m + ":" + 0 + myTime.s;
+  var timeString2 = myTime.m + ":" + myTime.s;
+  if (myTime.s < 10){
+    $("#output").text(timeString);
+      }else{
+      $("#output").text(timeString2);
+    }
+}
+
+function countDown(myTime){
+    if (!running) {           //preventing start button spam;
+    totalSecs = (parseInt(sessionTime.textContent))*60;
+    var fivePercent = totalSecs / 20; 
+    running = true; 
+    timerintervalID = setInterval(function(){
+      if (myTime.m > -1 && myTime.s+myTime.m > 0 && paused === false)
+      {
+              myTime.s = myTime.s - 1; 
+              if (myTime.s === -1){
+              myTime.m = myTime.m - 1;
+              myTime.s = 59;
+              timeDisplay(myTime);
+              }else{
+              timeDisplay(myTime);
+              }
+                totalSecs = (myTime.m*60)+myTime.s;
+              if (totalSecs % fivePercent === 0 && markCompleted < 100){
+                  markCompleted = markCompleted+5;
+                  completionBar ();
+                  }
+     }else{
+       if (breakOver === false && paused === false && restarted === false){
+         beep();
+         document.getElementById("work").textContent = "Break";
+         $("#startB").attr("disabled", true);
+         myTime.m = breakLength-1; 
+         myTime.s = 59; 
+         timeDisplay(myTime);
+         breakOver = true; 
+         return
+       }else{sessionRestart();}
+     }  // end of minutes check "else"                            
+    } //end of set interval function                           
+                                 ,1000);} return
+    }  // end of countdown function
+
+function stopFunction (){
+  $("#startB").attr("disabled", false);
+  clearInterval(timerintervalID);
+  running = false; 
+  breakOver = false;// this permits to use te button start after a stop.
+  paused = true; //freez timer
+  // if/else should come in here to determine work/break
+  time = parseInt(output.textContent);
+  //document.getElementById("work").textContent = "Work time !";
+  
+}
+
+function sessionRestart(){
+  $("#startB").attr("disabled", false);
+  clearInterval(timerintervalID);
+  pause = false;
+  running = false; 
+  breakOver = false;// this permits to use te button start after a stop.
+  restarted = true;
+  // if/else should come in here to determine work/break
+  output.textContent = sessionTime.textContent+":"+"00";
+  time = parseInt(output.textContent);
+  //console.log(time);
+  document.getElementById("work").textContent = "Work time !";
+  document.getElementById("marker").textContent="0%"
+  document.getElementById("marker").style.width="0%";
+  markCompleted = 0;
+  fivePercent = 0;
+  totalSecs = 0;
+  
+}
+
+          /*  ADDING FUNCTIONALITY OF BREAK LENGTH */
+          /* --------------------------------------*/
+          /* --------------------------------------*/
+
+function decreaseBreakFunction(){
+var i = document.getElementById("breakTime").textContent;
+   if (i > 1){
+   i--;
+   $("#breakTime").html(i);// replace in HTML
+   breakLength = i;        //overwriting breakLength;
+   if (running === false && document.getElementById("work").textContent === "Break"){
+    output.textContent = i+":"+"00";
+    time = breakTime.textContent;
+   }
+ //console.log(parseInt(time));
+ }
+}
+
+
+function increaseBreakFunction(){
+ var j = document.getElementById("breakTime").textContent;
+   if (j < 30){
+   j++;
+   $("#breakTime").html(j);// replace in HTML
+   breakLength = j;        //overwriting breakLength;
+   if (running === false && document.getElementById("work").textContent === "Break"){
+     output.textContent = j+":"+"00";
+     time = breakTime.textContent;
+   }
+ }
+}
+

@@ -1,0 +1,71 @@
+<link href='http://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+
+<link href='http://fonts.googleapis.com/css?family=Schoolbell&v1' rel='stylesheet' type='text/css'>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+<link href='http://fonts.googleapis.com/css?family=Cookie' rel='stylesheet' type='text/css'>
+
+<title>Pomodoro Timer</title>
+
+<h2 align="center"><font color = "white">Boost your productivity ! Use a timer ! </font> </h2>
+<div class="top-buffer"></div>
+<div class = "container-fluid">
+  
+    <!-- Part1. Adding the buttons Start, Stop, Restart, Set Time, Set Break -->
+  
+  <div class= "row">
+  <div class="text-center">
+      <div class = "btn-group">
+      
+      <div class ="col-xs-4"><button id = startB class="btn btn-lg btn-success"><i class="fa fa-play"></i> Start </button></div>
+      <div class ="col-xs-4"><button id = stopB class="btn btn-lg btn-danger"><i class="fa fa-stop"></i> Stop </button></div>
+      <div class ="col-xs-4"><button id= restartB class="btn btn-lg btn-primary"><i class="fa fa-repeat"></i> Restart </button></div>
+      </div> <!-- end of button group -->
+    </div> <!-- end of text-center div -->
+  </div><!-- end of row -->      
+  
+  <!-- Part2. Break Lenth & Session Length -->
+    
+    <div class= "row">
+    <div class="text-center">
+      <div class="top-buffer"></div>
+      <div class ="col-xs-6"><p class="descriptionCookie"><font color="white"> BREAK LENGTH</font></p></div>
+      <div class ="col-xs-6"><p class="descriptionCookie"><font color="white"> SESSION LENGTH </font></p></div> 
+      
+      <!-- break buttons bellow -->
+      <div class ="col-xs-6">
+      <button id="breakMinus" class="btn btn-sm btn-warning">-</button>
+      <span id="breakTime" style="color:white">5</span>
+      <button id="breakPlus" class="btn btn-sm btn-warning">+</button></div> 
+      
+      <!-- sessions length buttons below -->
+      <div class ="col-xs-6">
+      <button id="sessionMinus" class="btn btn-sm btn-warning">-</button>
+      <span id="sessionTime" style="color:white ">25</span>
+      <button id="sessionPlus" class="btn btn-sm btn-warning">+</button></div>  
+    </div> <!-- end of text-center div -->
+   </div><!-- end of row -->  
+ 
+<!-- Part 3. THE TIMER -->
+  <div class="container">
+    <div class="text-center">
+      <div class='timeleft'>
+        <p id="work" class="descriptionCookie2">Work time !</p>
+         <p id = "output" class="descriptionCookie2">25:00</p>
+   <div><!-- end of timer div-->
+   </div> <!-- end of text-center div -->
+  </div><!-- end of row --> 
+      
+      <div class="container">
+        <div class="progress">
+          <div id= "marker" class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:0%">
+      0%
+    </div>
+  </div>
+</div>
+      
+</div><!-- end of fluid container -->
+    
+<!--<h2 align="right"><p id="r">by Robert Uivarosi</p></h2>-->
+      
